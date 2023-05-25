@@ -1,13 +1,17 @@
-const container = document.getElementById("container");
+const grid = document.getElementById("grid");
+const resetBtn = document.getElementById("resetButton");
+const rainbowBtn = document.getElementById("rainbowButton");
+
+resetBtn.onclick = () => reloadGrid ();
+
 function makeRows(rows, cols) {
-    container.style.setProperty("--grid-rows", rows);
-    container.style.setProperty("--grid-cols", cols);
+    grid.style.setProperty("--grid-rows", rows);
+    grid.style.setProperty("--grid-cols", cols);
 
     let isMouseDown = false; //tracks whether mouse button is pressed or not
 
     for (let c = 0; c < rows * cols; c++) {
         let cell = document.createElement("div");
-        cell.innerText = c + 1;
         cell.className = "grid-item";
 
         // Added mousedown and mouseover listeners to each grid item
@@ -27,9 +31,21 @@ function makeRows(rows, cols) {
         window.addEventListener('mouseup', function () {
             isMouseDown = false;
         });
-        container.appendChild(cell);
+        grid.appendChild(cell);
     }
 }
+
+
+function reloadGrid() {
+    resetGrid()
+    makeRows(16, 16);
+  }
+  
+  function resetGrid() {
+    grid.innerHTML = ''
+  }
+  
+
 makeRows(16, 16);
 
 
