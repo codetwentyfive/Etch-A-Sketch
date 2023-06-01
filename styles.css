@@ -2,7 +2,28 @@
   --primary-dark: #ee2127;
   --primary-light: #ededed;
   --secondary-light: #fefefe;
+
+  --shadow-color: 359deg 81% 34%;
+  --shadow-elevation-low:
+    0.8px 0.7px 1.2px hsl(var(--shadow-color) / 0.3),
+    1.3px 1.1px 1.9px -1.2px hsl(var(--shadow-color) / 0.3),
+    2.9px 2.6px 4.4px -2.5px hsl(var(--shadow-color) / 0.3);
+  --shadow-elevation-medium:
+    0.8px 0.7px 1.2px hsl(var(--shadow-color) / 0.32),
+    2.5px 2.1px 3.7px -0.8px hsl(var(--shadow-color) / 0.32),
+    6.1px 5.3px 9.1px -1.7px hsl(var(--shadow-color) / 0.32),
+    14.7px 12.8px 21.9px -2.5px hsl(var(--shadow-color) / 0.32);
+  --shadow-elevation-high:
+    0.8px 0.7px 1.2px hsl(var(--shadow-color) / 0.3),
+    4.1px 3.6px 6.1px -0.4px hsl(var(--shadow-color) / 0.3),
+    7.6px 6.6px 11.3px -0.7px hsl(var(--shadow-color) / 0.3),
+    12.4px 10.9px 18.6px -1.1px hsl(var(--shadow-color) / 0.3),
+    19.8px 17.3px 29.6px -1.4px hsl(var(--shadow-color) / 0.3),
+    30.9px 27px 46.2px -1.8px hsl(var(--shadow-color) / 0.3),
+    47px 41.1px 70.2px -2.1px hsl(var(--shadow-color) / 0.3),
+    69.2px 60.5px 103.4px -2.5px hsl(var(--shadow-color) / 0.3);
 }
+
 
 *,
 *::before,
@@ -28,7 +49,7 @@ body {
 
 h1 {
   line-height: 1.2;
-  color:#ee2127
+  color: #ee2127
 }
 
 button,
@@ -50,7 +71,7 @@ input {
 
 .title {
   text-align: center;
-  font-size: 80px;
+  font-size: 4em;
 }
 
 /* MAIN */
@@ -61,7 +82,8 @@ input {
   justify-content: flex-start;
   gap: 100px;
   max-width: 1100px;
-  margin: 0 auto;
+  margin: 2em auto;
+  
 }
 
 .settings {
@@ -75,8 +97,9 @@ input {
 
 button {
   padding: 10px 15px;
-  border: 1px solid #3f3f3f;
-  border-radius: 10px;
+  border: px solid;
+  border-radius: 20px;
+  box-shadow: var(--shadow-elevation-medium);
 }
 
 button.active {
@@ -92,18 +115,23 @@ input[type='color'] {
 button:hover,
 input[type='color']:hover {
   transform: scale(1.2);
+  
 }
 
 input[type='color']:active {
   transition: transform 0.05s ease-in-out;
   transform: scale(1);
+  
 }
 
 input[type='color'] {
   -webkit-appearance: none;
-  width: 80px;
+  width: 200px;
   height: 80px;
   border: none;
+  box-shadow: var(--shadow-elevation-medium);
+  border-radius: 50px;
+  
 }
 
 input[type='color']::-webkit-color-swatch-wrapper {
@@ -123,7 +151,6 @@ input[type='color']::-webkit-color-swatch {
 
 input[type='range'] {
   -webkit-appearance: none;
-  background-color: #fee882y;
 }
 
 input[type='range']::-webkit-slider-runnable-track {
@@ -140,7 +167,7 @@ input[type='range']::-webkit-slider-thumb {
   border-radius: 25px;
   margin-top: -8px;
   background: #fee882;
-  
+
 }
 
 .grid {
@@ -149,6 +176,8 @@ input[type='range']::-webkit-slider-thumb {
   height: 500px;
   background-color: var(--secondary-light);
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  box-shadow: var(--shadow-elevation-high);
+
 
 }
 
