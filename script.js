@@ -104,28 +104,7 @@ function activateButton(newMode) {
   }
 }
 
-let slider = document.querySelector('.slider'),
-    sliderValue = document.querySelector('#slider-value');
-    
 
-slider.oninput = function() {
-  showValue();
-}
-
-function showValue() {  
-  sliderValue.innerHTML = slider.value;
-  var sliderPosition = ( slider.value / slider.max )
-  
-  if(slider.value === slider.min) {
-    sliderValue.style.left = ((sliderPosition * 100)  + 2 ) + "%";
-  }
-  else if ( slider.value === slider.max) {
-    sliderValue.style.left =  ((sliderPosition * 100) - 2 ) + "%";
-  } 
-  else {
-    sliderValue.style.left = ((sliderPosition * 100)) + "%";
-  }
-}
 window.onload = () => {
   setupGrid(DEFAULT_SIZE)
   activateButton(DEFAULT_MODE)
