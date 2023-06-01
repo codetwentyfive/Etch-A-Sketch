@@ -143,7 +143,7 @@ function saveGrid() {
       // Create a temporary link element to download the image
       const link = document.createElement('a');
       link.href = url;
-      link.download = 'grid.jpg';
+      link.download = 'dumplingMagic.jpg';
       link.click();
   
       // Clean up the temporary URL
