@@ -27,6 +27,8 @@ const resetBtn = document.getElementById('resetBtn')
 const sizeValue = document.getElementById('sizeValue')
 const sizeSlider = document.getElementById('sizeSlider')
 const grid = document.getElementById('grid')
+const saveBtn = document.getElementById("saveBtn");
+
 
 colorPicker.oninput = (e) => setCurrentColor(e.target.value)
 colorBtn.onclick = () => setCurrentMode('color')
@@ -35,6 +37,7 @@ eraserBtn.onclick = () => setCurrentMode('eraser')
 resetBtn.onclick = () => reloadGrid()
 sizeSlider.onmousemove = (e) => updateSizeValue(e.target.value)
 sizeSlider.onchange = (e) => changeSize(e.target.value)
+saveBtn.onclick = saveGrid;
 
 let mouseDown = false
 document.body.onmousedown = () => (mouseDown = true)
@@ -104,7 +107,51 @@ function activateButton(newMode) {
   }
 }
 
-
+function saveGrid() {
+    // Calculate the total size of the grid
+    const gridSize = currentSize;
+    const cellSize = grid.offsetWidth / gridSize;
+    const gridWidth = cellSize * gridSize;
+    const gridHeight = cellSize * gridSize;
+  
+    // Create a canvas element with the grid size
+    const canvas = document.createElement('canvas');
+    canvas.width = gridWidth;
+    canvas.height = gridHeight;
+    const ctx = canvas.getContext('2d');
+  
+    // Set canvas background color to white
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 0, gridWidth, gridHeight);
+  
+    // Capture the grid content
+    const gridItems = document.querySelectorAll('.grid-element');
+    gridItems.forEach((item) => {
+      const itemStyle = getComputedStyle(item);
+      const backgroundColor = itemStyle.backgroundColor;
+      const itemRect = item.getBoundingClientRect();
+      const itemX = itemRect.left - grid.getBoundingClientRect().left;
+      const itemY = itemRect.top - grid.getBoundingClientRect().top;
+      ctx.fillStyle = backgroundColor;
+      ctx.fillRect(itemX, itemY, cellSize, cellSize);
+    });
+  
+    // Convert the canvas to a JPEG image
+    canvas.toBlob((blob) => {
+      const url = URL.createObjectURL(blob);
+  
+      // Create a temporary link element to download the image
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'grid.jpg';
+      link.click();
+  
+      // Clean up the temporary URL
+      URL.revokeObjectURL(url);
+    }, 'image/jpeg');
+  }
+  
+  
 window.onload = () => {
   setupGrid(DEFAULT_SIZE)
   activateButton(DEFAULT_MODE)
