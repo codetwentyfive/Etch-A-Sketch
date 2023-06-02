@@ -4,7 +4,7 @@ Project to create something like [**Etch A Sketch**](https://en.wikipedia.org/wi
 
 From The Odin Project's [curriculum](https://www.theodinproject.com/courses/foundations/lessons/etch-a-sketch-project).
 
-🔗 **Live preview:** [here]([https://artis-dev.github.io/etch-a-sketch/](https://codetwentyfive.github.io/Etch-A-Sketch/))
+🔗 **Live preview:** [here]([https://codetwentyfive.github.io/Etch-A-Sketch/]
 
 ## Built with
 
