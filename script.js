@@ -108,48 +108,58 @@ function activateButton(newMode) {
 }
 
 function saveGrid() {
-    // Calculate the total size of the grid
-    const gridSize = currentSize;
-    const cellSize = grid.offsetWidth / gridSize;
-    const gridWidth = cellSize * gridSize;
-    const gridHeight = cellSize * gridSize;
+  // Calculate the total size of the grid
+  const gridSize = currentSize;
+  const cellSize = grid.offsetWidth / gridSize;
+  const gridWidth = cellSize * gridSize;
+  const gridHeight = cellSize * gridSize;
   
-    // Create a canvas element with the grid size
-    const canvas = document.createElement('canvas');
-    canvas.width = gridWidth;
-    canvas.height = gridHeight;
-    const ctx = canvas.getContext('2d');
+  // Create a canvas element with the grid size
+  const canvas = document.createElement('canvas');
+  canvas.width = gridWidth;
+  canvas.height = gridHeight;
+  const ctx = canvas.getContext('2d');
   
-    // Set canvas background color to white
-    ctx.fillStyle = '#ffffff';
-    ctx.fillRect(0, 0, gridWidth, gridHeight);
+  // Set canvas background color to white
+  ctx.fillStyle = '#ffffff';
+  ctx.fillRect(0, 0, gridWidth, gridHeight);
   
-    // Capture the grid content
-    const gridItems = document.querySelectorAll('.grid-element');
-    gridItems.forEach((item) => {
-      const itemStyle = getComputedStyle(item);
-      const backgroundColor = itemStyle.backgroundColor;
-      const itemRect = item.getBoundingClientRect();
-      const itemX = itemRect.left - grid.getBoundingClientRect().left;
-      const itemY = itemRect.top - grid.getBoundingClientRect().top;
-      ctx.fillStyle = backgroundColor;
-      ctx.fillRect(itemX, itemY, cellSize, cellSize);
-    });
+  // Draw each grid element individually
+  const gridItems = document.querySelectorAll('.grid-element');
+  gridItems.forEach((item) => {
+    const itemStyle = getComputedStyle(item);
+    const backgroundColor = itemStyle.backgroundColor;
+    const borderColor = itemStyle.borderColor; // Added border color
+    const itemRect = item.getBoundingClientRect();
+    const itemX = itemRect.left - grid.getBoundingClientRect().left;
+    const itemY = itemRect.top - grid.getBoundingClientRect().top;
+    
+    // Draw border rectangle
+    ctx.strokeStyle = borderColor; // Set border color
+    ctx.lineWidth = 1; // Border width
+    ctx.strokeRect(itemX, itemY, cellSize, cellSize);
+    
+    // Draw background color
+    ctx.fillStyle = backgroundColor;
+    ctx.fillRect(itemX + 1, itemY + 1, cellSize - 2, cellSize - 2); // Adjusted position and size to include the border
+    
+  });
   
-    // Convert the canvas to a JPEG image
-    canvas.toBlob((blob) => {
-      const url = URL.createObjectURL(blob);
+  // Convert the canvas to a JPEG image
+  canvas.toBlob((blob) => {
+    const url = URL.createObjectURL(blob);
   
-      // Create a temporary link element to download the image
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = 'dumplingMagic.jpg';
-      link.click();
+    // Create a temporary link element to download the image
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'dumplingMagic.jpg';
+    link.click();
   
-      // Clean up the temporary URL
-      URL.revokeObjectURL(url);
-    }, 'image/jpeg');
-  }
+    // Clean up the temporary URL
+    URL.revokeObjectURL(url);
+  }, 'image/jpeg');
+}
+
   
   
 window.onload = () => {
